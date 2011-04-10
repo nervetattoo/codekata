@@ -8,6 +8,7 @@ Two strategies:
         Voila, php has this as a param to array_slice() - new knowledge!
 
 Time spent: 2 hours - harder than suspected
+My initial estimate was that i would use 30 minutes upwards 1 hour maximum - fits the multiply by pi
 
 My initial plan was to iteratively cut down the initial array into a 50% sized
 That proved to be the final solution as well, but it took about 5 iterations to reach the final solution
