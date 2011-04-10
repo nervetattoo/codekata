@@ -1,0 +1,6 @@
+Iteratively slicing the array leaves you with a reindexed array by default as it is positional indexed
+This makes it hard to return the initial position.
+
+Two strategies:
+1: Maintain an offset counter that can be used to pad the end result
+2: Dont reindex arrays (how?)
