@@ -32,5 +32,14 @@ class IterativeTest extends PHPUnit_Framework_TestCase {
 
 		foreach (array(0,2,4,6,8) as $pos)
 			$this->assertEquals(-1, $algo->chop($pos, $arr));
+
+        $high = 100;
+        $low = 0;
+        $step = 2;
+        $arr = range($low, $high, $step);
+        for ($i = $low; $i < $high; $i++) {
+            $expect = ($i % $step == 0) ? array_search($i, $arr) : -1;
+            $this->assertEquals($expect, $algo->chop($i, $arr));
+        }
 	}
 }

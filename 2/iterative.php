@@ -16,37 +16,46 @@ class IterativeBinaryChop {
      * @param array $haystack
      * @return int -1 = no match, else position
      */
-	public function chop($search, $haystack) {
-        $num = count($haystack);
-        $stack = $haystack;
-        if (!$num) return -1;
-        $offset = 0;
-        while (true) {
-            if ($num == 1) return ($haystack[0] == $search) ? $offset : -1;
+	public function chop($search, $haystack, $debug = false) {
+        $to = count($haystack);
+        $from = 0;
 
-            $split = round($num / 2);
+        // If no haystack, -1 always
+        if ($to == 0) return -1;
+        if ($to == 1) return ($haystack[0] == $search) ? 0 : -1;
+
+
+        $half = 0;
+        $i = 0;
+        $l = implode(",", $haystack);
+        if ($debug)
+            var_dump("Search '$search' in '$l'");
+        while ($half >= 0) {
+            $i++;
+            // Find test point and where to start searching
+            $lastHalf = $half;
+            $half = $from + floor(($to - $from) / 2);
+            $match = $haystack[$half];
+            if ($half == $lastHalf) {
+                if ($debug) echo "Iterations : $i\n";
+                return ($match == $search) ? $half : -1;
+            }
 
             // We might be lucky as hell and want the first one
-            if ($search == $haystack[$split]) return $split + $offset;
+            if ($search == $match) {
+                if ($debug) echo "Iterations : $i\n";
+                return $half;
+            }
 
-            /**
-             * Right side, all values higher than search
-             * Given [0,1,2,3] split would be 4 / 2 = 2
-             * search = 3 gives:
-             * 3 > stack[2] (2) => true
-             * stack = [2,3]
-             *
-             * 3 > stack[1] (3) === return
-             */
-            if ($search > $haystack[$split])
-            {
-                $haystack = array_slice($haystack, $split);
+
+            // More likely though, search a more narrow set
+            if ($search > $match) {
+                $from = $half;
             }
-            else
-            {
-                $haystack = array_slice($haystack, 0, $split);
+            else {
+                $from = 0;
+                $to = $half;
             }
-            $num = count($haystack);
         }
         return -1;
 	}
