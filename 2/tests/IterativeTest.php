@@ -12,11 +12,11 @@ class IterativeTest extends PHPUnit_Framework_TestCase {
 	public function testChop() {
 		$algo = new IterativeBinaryChop;
 
+		$arr = array(1,3,5);
 		$this->assertEquals(-1, $algo->chop(3, array()));
 		$this->assertEquals(-1, $algo->chop(3, array(1)));
 		$this->assertEquals(0, $algo->chop(1, array(1)));
 
-		$arr = array(1,3,5);
 		$this->assertEquals(0, $algo->chop(1, $arr));
 		$this->assertEquals(1, $algo->chop(3, $arr));
 		$this->assertEquals(2, $algo->chop(5, $arr));

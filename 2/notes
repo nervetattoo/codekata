@@ -2,5 +2,12 @@ Iteratively slicing the array leaves you with a reindexed array by default as it
 This makes it hard to return the initial position.
 
 Two strategies:
-1: Maintain an offset counter that can be used to pad the end result
-2: Dont reindex arrays (how?)
+    1: Maintain an offset counter that can be used to pad the end result
+        Turned out to be a real pain
+    2: Dont reindex arrays (how?)
+        Voila, php has this as a param to array_slice() - new knowledge!
+
+Time spent: 2 hours - harder than suspected
+
+My initial plan was to iteratively cut down the initial array into a 50% sized
+That proved to be the final solution as well, but it took about 5 iterations to reach the final solution

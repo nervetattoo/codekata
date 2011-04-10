@@ -17,46 +17,30 @@ class IterativeBinaryChop {
      * @return int -1 = no match, else position
      */
 	public function chop($search, $haystack, $debug = false) {
-        $to = count($haystack);
-        $from = 0;
+        $count = count($haystack);
+        // Return early if possible
+        if ($count == 0) return -1;
 
-        // If no haystack, -1 always
-        if ($to == 0) return -1;
-        if ($to == 1) return ($haystack[0] == $search) ? 0 : -1;
+        if ($debug) var_dump("Search '$search' in : " . implode(",", $haystack));
 
-
-        $half = 0;
         $i = 0;
-        $l = implode(",", $haystack);
-        if ($debug)
-            var_dump("Search '$search' in '$l'");
-        while ($half >= 0) {
+        while ($count >= 1) {
             $i++;
-            // Find test point and where to start searching
-            $lastHalf = $half;
-            $half = $from + floor(($to - $from) / 2);
-            $match = $haystack[$half];
-            if ($half == $lastHalf) {
-                if ($debug) echo "Iterations : $i\n";
-                return ($match == $search) ? $half : -1;
-            }
+            $position = round($count / 2, 0);
 
-            // We might be lucky as hell and want the first one
-            if ($search == $match) {
-                if ($debug) echo "Iterations : $i\n";
-                return $half;
-            }
+            $match = array_slice($haystack, $position - 1, 1, true);
+            $key = key($match);
+            $match = current($match);
 
+            if ($match == $search)
+                return $key;
 
-            // More likely though, search a more narrow set
-            if ($search > $match) {
-                $from = $half;
-            }
-            else {
-                $from = 0;
-                $to = $half;
-            }
+            if ($search > $match)
+                $haystack = array_slice($haystack, $position, $count, true);
+            else
+                $haystack = array_slice($haystack, 0, $position - 1, true);
+            $count = count($haystack);
         }
         return -1;
-	}
+    }
 }
