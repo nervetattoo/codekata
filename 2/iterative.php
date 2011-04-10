@@ -23,9 +23,7 @@ class IterativeBinaryChop {
 
         if ($debug) var_dump("Search '$search' in : " . implode(",", $haystack));
 
-        $i = 0;
         while ($count >= 1) {
-            $i++;
             $position = round($count / 2, 0);
 
             $match = array_slice($haystack, $position - 1, 1, true);
