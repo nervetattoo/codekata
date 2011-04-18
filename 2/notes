@@ -12,3 +12,5 @@ My initial estimate was that i would use 30 minutes upwards 1 hour maximum - fit
 
 My initial plan was to iteratively cut down the initial array into a 50% sized
 That proved to be the final solution as well, but it took about 5 iterations to reach the final solution
+
+Chunking and recursively iterating produces a lot nicer code, but performs 10%+ worse than the iterative solution

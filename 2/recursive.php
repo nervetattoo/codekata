@@ -19,26 +19,14 @@ class RecursiveBinaryChop {
      */
 	public function chop($search, $haystack) {
         $count = count($haystack);
-
         if ($count == 0) return -1;
 
-        $pos = floor($count / 2);
-        $match = array_slice($haystack, $pos, 1, true);
+        list($left, $right) = array_chunk($haystack, ceil($count/2), true);
+        $test = end($left);
 
-        if (current($match) == $search) return key($match);
-        if ($count == 1) return -1;
+        if ($search == $test) return key($left);
+        elseif ($search < $test) $right = array_slice($left,0,-1,true);
 
-        if ($search > current($match)) {
-            $start = $pos;
-            $length = $count;
-        }
-        else {
-            $start = 0;
-            $length = $pos;
-        }
-
-        return $this->chop($search, 
-            array_slice($haystack, $start, $length, true)
-        );
+        return $this->chop($search, $right);
     }
 }
