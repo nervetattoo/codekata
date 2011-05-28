@@ -17,7 +17,7 @@ class RecursiveBinaryChop {
      *
      * @return int -1 = no match, else position
      */
-	public function chop($search, $haystack) {
+    public function chop($search, $haystack) {
         $count = count($haystack);
         if ($count == 0) return -1;
 
